@@ -1,0 +1,13 @@
+body{
+    background-image:url(/images/wild2.jpeg);
+    height: 100vh;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Open Sans',serif;
+    color:white;
+
+}
+h1{
+    color: red;
+}
