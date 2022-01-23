@@ -2,6 +2,7 @@ import models.Student;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,17 +16,14 @@ public class App {
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) { //type “psvm + tab” to autocreate this :)
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
+
 
         get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             return new ModelAndView(model, "index.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        get("/about", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            return new ModelAndView(model, "about.hbs");
         }, new HandlebarsTemplateEngine());
 
         get("/links", (request, response) -> {
@@ -33,20 +31,30 @@ public class App {
             return new ModelAndView(model, "link.hbs");
         }, new HandlebarsTemplateEngine());
 
-        get("/student/new", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "students.hbs");
-        }, new HandlebarsTemplateEngine());
-
-        post("/student", (request, response) -> {
+        post("/student/new", (request, response) -> { //URL to make new post on POST route
             Map<String, Object> model = new HashMap<String, Object>();
             String name = request.queryParams("name");
-            String cohort = request.queryParams("ranger");
-            Student student = new Student(name,cohort);
-            student.save(student);
-            response.redirect("/");
-            return null;
+            Integer age = Integer.parseInt(request.queryParams("age"));
+            String cohort = request.queryParams("cohort");
+            Student newStudent = new Student(name,age,cohort);
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
+
+
+        get("/students-form", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            return new ModelAndView(model, "student-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/students-detail",(req, res) ->{
+            Map<String, Object> model = new HashMap<>();
+            ArrayList<Student> students = Student.getAll();
+            System.out.println(students);
+            model.put("student", students);
+            return new ModelAndView(model, "student-detail.hbs");
+        }, new HandlebarsTemplateEngine());
+
+
 
     }
 }

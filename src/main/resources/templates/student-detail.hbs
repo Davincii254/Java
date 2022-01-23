@@ -1,0 +1,22 @@
+{{#partial "content"}}
+    <link rel="stylesheet" href="/css/student-form.css">
+
+        <div class="detail" >
+
+        {{#each student}}
+            <p>Name:{{ name }}</p>
+            <p>Age:{{ age }}</p>
+            <p>Cohort:{{ cohort }}</p>
+            <p>Id:{{id}}</p>
+        <hr>
+            <p>
+                {{#if post.published }}
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>  Published
+                {{/if}}
+            </p>
+        {{/each}}
+        </div>
+
+{{/partial}}
+
+{{> layout.hbs}}

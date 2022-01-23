@@ -1,0 +1,26 @@
+{{#partial "content"}}
+    <link rel="stylesheet" href="/css/student-form.css">
+
+    <h1>Add a new student!</h1>
+
+    <form action="/student/new" method="post" class="app">
+        <div class="form">
+            <label for ="name"> Student's Name</label>
+            <input type="text"  style="margin-bottom: 30px;" name="name" required>
+        </div>
+        <div class="form">
+            <label for ="age"> Student's Age</label>
+            <input type="number"  style="margin-bottom: 30px;" name="age" required>
+        </div>
+        <div class="form">
+            <label for ="cohort"> Student's Cohort</label>
+            <input type="text"  style="margin-bottom: 30px;" name="cohort" required>
+        </div>
+
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Add new Student </button>
+    </form>
+{{/partial}}
+
+{{> layout.hbs}}

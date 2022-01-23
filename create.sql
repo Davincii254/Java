@@ -4,5 +4,5 @@ CREATE DATABASE routing;
 
 CREATE TABLE student (
     name varchar,
-    health varchar
+    cohort varchar
 );

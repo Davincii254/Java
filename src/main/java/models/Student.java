@@ -1,35 +1,45 @@
 package models;
 
-import org.sql2o.Connection;
+import java.util.ArrayList;
 
 public class Student {
-    public String name;
-    public String cohort;
+    private String name;
+    private int age;
+    private String cohort;
+    private int id;
+    private static ArrayList<Student> instances = new ArrayList<>();
 
-    public Student(String name, String cohort) {
 
+    public Student(String name, Integer age, String cohort) {
+        this.name = name;
+        this.age = age;
+        this.cohort = cohort;
+        instances.add(this);
+        this.id = instances.size();
     }
 
     public String getName() {
         return name;
     }
-
-
+    public Integer getAge(){
+        return age;
+    }
     public String getCohort() {
         return cohort;
     }
 
-
-
-    public void save(Student student){
-        try(Connection connect = Database.sql2o.open()) {
-            String sql = "INSERT INTO student (name, cohort) VALUES (:name, :cohort)";
-            connect.createQuery(sql, true)
-                    .addParameter("name", this.name)
-                    .addParameter("cohort",this.cohort)
-                    .throwOnMappingFailure(false)
-                    .executeUpdate()
-                    .getKey();
-        }
+    public static ArrayList<Student> getAll(){
+        return instances;
     }
+
+    public static void clearAllStudents(){
+        instances.clear();
+    }
+    public int getId() {
+        return id;
+    }
+    public static Student findById(int id){
+        return instances.get(id-1);
+    }
+
 }
