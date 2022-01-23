@@ -1,3 +1,4 @@
+import models.Student;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -30,6 +31,21 @@ public class App {
         get("/links", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             return new ModelAndView(model, "link.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/student/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "students.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/student", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            String name = request.queryParams("name");
+            String cohort = request.queryParams("ranger");
+            Student student = new Student(name,cohort);
+            student.save(student);
+            response.redirect("/");
+            return null;
         }, new HandlebarsTemplateEngine());
 
     }

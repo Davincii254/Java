@@ -98,7 +98,7 @@
                     <!-- Change this to YOUR application name! -->
                     <appName>javaaaac</appName>
                     <processTypes>
-                        <web>java -jar target/Java-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
+                        <web>java -jar target/java-1.0-SNAPSHOT-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
